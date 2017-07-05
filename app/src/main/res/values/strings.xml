@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">TestRx</string>
+    <string name="data_load_success">Data loaded successfully</string>
+    <string name="data_load_error">Data loading Failed</string>
+    <string name="connection_error">No internet connection!</string>
+    <string name="connection_success">Connection success</string>
+</resources>
