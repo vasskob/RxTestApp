@@ -57,10 +57,14 @@ public class MainActivity extends AppCompatActivity implements MainView {
                 .subscribe(isConnectedToInternet -> {
                     if (isConnectedToInternet) {
                         showConnectionSuccessToast();
-                        presenter.loadData();
-                        pbLoading.setVisibility(View.VISIBLE);
+                        loadData();
                     } else showConnectionFailedToast();
                 });
+    }
+
+    private void loadData() {
+        presenter.loadData();
+        pbLoading.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -98,9 +102,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showConnectionSuccessToast() {
-        showToast(getString(R.string.connection_success));
-    }
+    public void showConnectionSuccessToast() {showToast(getString(R.string.connection_success));}
 
     private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
