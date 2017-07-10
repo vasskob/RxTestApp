@@ -1,6 +1,8 @@
 package com.task.vasskob.testrx.view.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +14,18 @@ import com.task.vasskob.testrx.model.SpecialStore;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = StoreListAdapter.class.getSimpleName();
     private final ArrayList<SpecialStore> stores;
+    private final Context context;
 
-    public StoreListAdapter(List<SpecialStore> stores) {
+    public StoreListAdapter(List<SpecialStore> stores, Context context) {
         this.stores = (ArrayList<SpecialStore>) stores;
+        this.context = context;
     }
 
     @Override
@@ -33,8 +40,11 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         StoreViewHolder storeHolder = (StoreViewHolder) holder;
         if (stores != null) {
             SpecialStore store = stores.get(position);
-            storeHolder.storeName.setText(store.getName());
+            storeHolder.storeName.setText(store.getShopName());
             storeHolder.storeLocation.setText(store.getCity() + ", " + store.getAddress());
+            String title=String.format(context.getString(R.string.best_offer),store.getProductName());
+            CharSequence styledTitle= Html.fromHtml(title);
+            storeHolder.storeProducts.setText(styledTitle);
         }
     }
 
@@ -45,13 +55,18 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else return 0;
     }
 
-    private class StoreViewHolder extends RecyclerView.ViewHolder {
-        TextView storeName, storeLocation;
+    class StoreViewHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.tv_store_name)
+        TextView storeName;
+        @BindView(R.id.tv_store_location)
+        TextView storeLocation;
+        @BindView(R.id.tv_best_offer_product)
+        TextView storeProducts;
 
         StoreViewHolder(View v) {
             super(v);
-            storeName = v.findViewById(R.id.tv_store_name);
-            storeLocation = v.findViewById(R.id.tv_store_location);
+            ButterKnife.bind(this, v);
         }
     }
 }

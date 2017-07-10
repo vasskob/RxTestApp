@@ -2,24 +2,32 @@ package com.task.vasskob.testrx.model;
 
 public class SpecialStore {
 
-    private String name;
+    private String shopName;
     private String city;
     private String address;
+    private String productName;
 
-
-    public SpecialStore(String name, String city, String address) {
-        this.name = name;
+    public SpecialStore(String name, String city, String address, String productName) {
+        this.shopName = name;
         this.city = city;
         this.address = address;
+        this.productName = productName;
     }
 
-    public String getName() {
-
-        return name;
+    public String getShopName() {
+        return shopName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getCity() {

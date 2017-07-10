@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void showStoreList(List<SpecialStore> storeList) {
         Log.d(TAG, "!!! showStoreList: " + storeList.size());
         pbLoading.setVisibility(View.GONE);
-        rvStores.setAdapter(new StoreListAdapter(storeList));
+        rvStores.setAdapter(new StoreListAdapter(storeList, this));
     }
 
     @Override

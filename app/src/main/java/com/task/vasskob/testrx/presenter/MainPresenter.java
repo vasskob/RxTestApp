@@ -1,10 +1,13 @@
 package com.task.vasskob.testrx.presenter;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.task.vasskob.testrx.api.RetrofitSingleton;
+import com.task.vasskob.testrx.model.Product;
 import com.task.vasskob.testrx.model.SpecialStore;
 import com.task.vasskob.testrx.model.Store;
+import com.task.vasskob.testrx.model.StoreVsProduct;
 import com.task.vasskob.testrx.view.MainView;
 
 import java.util.ArrayList;
@@ -20,6 +23,8 @@ public class MainPresenter implements IMainPresenter {
 
     private static final String TAG = MainPresenter.class.getSimpleName();
     private static final String CITY = " city";
+    private static final String FILTER_STRING = "a";
+    private static final String MODIFIER = " !";
     private MainView mView;
     private Subscription subscription;
 
@@ -29,19 +34,24 @@ public class MainPresenter implements IMainPresenter {
             subscription.unsubscribe();
         }
         subscription = RetrofitSingleton.getModelsObservable()
-                .map(stores -> {
-                    List<SpecialStore> specialStoreList = new ArrayList<>();
-                    for (Store store : stores) {
-                        specialStoreList.add(new SpecialStore(store.getName() + " !", store.getCity() + CITY, store.getAddress1()));
-                    }
-                    return specialStoreList;
-                })
+                .map(this::getSpecialStores)
                 .flatMapIterable(specialStores -> specialStores)
-                .filter(specialStore -> specialStore.getCity().equals("Ottawa city"))
+                .filter(specialStore -> specialStore.getCity().contains(FILTER_STRING))
                 .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new MySubscriber());
+    }
+
+    @NonNull
+    private List<SpecialStore> getSpecialStores(List<StoreVsProduct> storeVsProductList) {
+        List<SpecialStore> specialStoreList = new ArrayList<>();
+        for (StoreVsProduct storeVsProduct : storeVsProductList) {
+            Store store = storeVsProduct.getStore();
+            Product product = storeVsProduct.getProduct();
+            specialStoreList.add(new SpecialStore(store.getName() + MODIFIER, store.getCity() + CITY, store.getAddress1(), product.getName()));
+        }
+        return specialStoreList;
     }
 
     @Override

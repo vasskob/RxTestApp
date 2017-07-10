@@ -32,6 +32,12 @@ public class Store {
     public Store() {
     }
 
+    public Store(String name, String address1, String city) {
+        this.name = name;
+        this.address1 = address1;
+        this.city = city;
+    }
+
     public Store(long id, String name, String address1, String address2, String city,
                  String telephone, double latitude, double longitude,
                  boolean hasWheelchairAccessability, boolean hasBilingualServices,
