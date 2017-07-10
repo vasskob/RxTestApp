@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.github.pwittchen.reactivenetwork.library.ReactiveNetwork;
 import com.task.vasskob.testrx.R;
-import com.task.vasskob.testrx.model.Store;
+import com.task.vasskob.testrx.model.SpecialStore;
 import com.task.vasskob.testrx.presenter.MainPresenter;
 import com.task.vasskob.testrx.view.adapter.StoreListAdapter;
 
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showStoreList(List<Store> storeList) {
+    public void showStoreList(List<SpecialStore> storeList) {
         Log.d(TAG, "!!! showStoreList: " + storeList.size());
         pbLoading.setVisibility(View.GONE);
         rvStores.setAdapter(new StoreListAdapter(storeList));

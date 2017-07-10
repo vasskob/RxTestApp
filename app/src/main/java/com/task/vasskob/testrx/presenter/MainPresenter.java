@@ -3,9 +3,11 @@ package com.task.vasskob.testrx.presenter;
 import android.util.Log;
 
 import com.task.vasskob.testrx.api.RetrofitSingleton;
+import com.task.vasskob.testrx.model.SpecialStore;
 import com.task.vasskob.testrx.model.Store;
 import com.task.vasskob.testrx.view.MainView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rx.Subscriber;
@@ -17,6 +19,7 @@ import rx.schedulers.Schedulers;
 public class MainPresenter implements IMainPresenter {
 
     private static final String TAG = MainPresenter.class.getSimpleName();
+    private static final String CITY = " city";
     private MainView mView;
     private Subscription subscription;
 
@@ -26,6 +29,16 @@ public class MainPresenter implements IMainPresenter {
             subscription.unsubscribe();
         }
         subscription = RetrofitSingleton.getModelsObservable()
+                .map(stores -> {
+                    List<SpecialStore> specialStoreList = new ArrayList<>();
+                    for (Store store : stores) {
+                        specialStoreList.add(new SpecialStore(store.getName() + " !", store.getCity() + CITY, store.getAddress1()));
+                    }
+                    return specialStoreList;
+                })
+                .flatMapIterable(specialStores -> specialStores)
+                .filter(specialStore -> specialStore.getCity().equals("Ottawa city"))
+                .toList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new MySubscriber());
@@ -48,7 +61,7 @@ public class MainPresenter implements IMainPresenter {
         }
     }
 
-    private class MySubscriber extends Subscriber<List<Store>> {
+    private class MySubscriber extends Subscriber<List<SpecialStore>> {
 
         @Override
         public void onCompleted() {
@@ -63,7 +76,7 @@ public class MainPresenter implements IMainPresenter {
         }
 
         @Override
-        public void onNext(List<Store> stores) {
+        public void onNext(List<SpecialStore> stores) {
             int prevSize = stores.size();
             Log.d(TAG, "onNext: " + prevSize);
             mView.showStoreList(stores);

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.task.vasskob.testrx.R;
-import com.task.vasskob.testrx.model.Store;
+import com.task.vasskob.testrx.model.SpecialStore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,10 @@ import java.util.List;
 
 public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final String TAG = StoreListAdapter.class.getSimpleName();
-    private final ArrayList<Store> stores;
+    private final ArrayList<SpecialStore> stores;
 
-    public StoreListAdapter(List<Store> stores) {
-        this.stores = (ArrayList<Store>) stores;
+    public StoreListAdapter(List<SpecialStore> stores) {
+        this.stores = (ArrayList<SpecialStore>) stores;
     }
 
     @Override
@@ -32,9 +32,9 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         StoreViewHolder storeHolder = (StoreViewHolder) holder;
         if (stores != null) {
-            Store store = stores.get(position);
+            SpecialStore store = stores.get(position);
             storeHolder.storeName.setText(store.getName());
-            storeHolder.storeLocation.setText(store.getCity() + ", " + store.getAddress1());
+            storeHolder.storeLocation.setText(store.getCity() + ", " + store.getAddress());
         }
     }
 

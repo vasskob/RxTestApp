@@ -4,8 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.task.vasskob.testrx.Constants;
 import com.task.vasskob.testrx.model.ApiResponse;
+import com.task.vasskob.testrx.model.Product;
 import com.task.vasskob.testrx.model.Store;
+import com.task.vasskob.testrx.model.StoreVsProduct;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Retrofit;
@@ -20,7 +23,10 @@ import rx.subjects.ReplaySubject;
 public class RetrofitSingleton {
     private static final String TAG = RetrofitSingleton.class.getSimpleName();
 
-    private static Observable<ApiResponse<List<Store>>> observableRetrofit;
+    private static Observable<ApiResponse<List<Store>>> observableStoreRetrofit;
+    private static Observable<ApiResponse<List<Product>>> observableProductRetrofit;
+    private static Observable<List<StoreVsProduct>> combined;
+  //  private static ReplaySubject<List<StoreVsProduct>> observableModelsList;
     private static ReplaySubject<List<Store>> observableModelsList;
     private static Subscription subscription;
 
@@ -40,7 +46,10 @@ public class RetrofitSingleton {
                 .build();
 
         StoreService apiService = retrofit.create(StoreService.class);
-        observableRetrofit = apiService.loadStores();
+        observableStoreRetrofit = apiService.loadStores();
+        observableProductRetrofit = apiService.loadAllProducts();
+        combined = Observable.zip(observableStoreRetrofit, observableProductRetrofit,
+                (listApiResponse, listApiResponse2) -> new ArrayList<StoreVsProduct>());
     }
 
     private static void resetModelsObservable() {
@@ -49,22 +58,39 @@ public class RetrofitSingleton {
         if (subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }
-        subscription = observableRetrofit.subscribe(new Subscriber<ApiResponse<List<Store>>>() {
-            @Override
-            public void onCompleted() {
-                observableModelsList.onCompleted();
-            }
+        subscription = observableStoreRetrofit
+                .subscribe(new Subscriber<ApiResponse<List<Store>>>() {
+                    @Override
+                    public void onCompleted() {
+                        observableModelsList.onCompleted();
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                observableModelsList.onError(e);
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        observableModelsList.onError(e);
+                    }
 
-            @Override
-            public void onNext(ApiResponse<List<Store>> storesResponse) {
-                observableModelsList.onNext(storesResponse.getData());
-            }
-        });
+                    @Override
+                    public void onNext(ApiResponse<List<Store>> storesResponse) {
+                        observableModelsList.onNext(storesResponse.getData());
+                    }
+                });
+//        subscription = combined.subscribe(new Subscriber<List<StoreVsProduct>>() {
+//            @Override
+//            public void onCompleted() {
+//                observableModelsList.onCompleted();
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                observableModelsList.onError(e);
+//            }
+//
+//            @Override
+//            public void onNext(List<StoreVsProduct> storesVsProducts) {
+//                observableModelsList.onNext(storesVsProducts);
+//            }
+//        });
     }
 
     public static Observable<List<Store>> getModelsObservable() {
