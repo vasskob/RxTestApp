@@ -1,5 +1,6 @@
 package com.task.vasskob.testrx.api;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -26,8 +27,6 @@ import rx.subjects.ReplaySubject;
 public class RetrofitSingleton {
     private static final String TAG = RetrofitSingleton.class.getSimpleName();
 
-    private static Observable<ApiResponse<List<Store>>> observableStore;
-    private static Observable<ApiResponse<List<Product>>> observableProduct;
     private static Observable<List<StoreVsProduct>> combined;
     private static ReplaySubject<List<StoreVsProduct>> observableModelsList;
     private static Subscription subscription;
@@ -49,18 +48,21 @@ public class RetrofitSingleton {
 
         StoreService storeService = retrofit.create(StoreService.class);
 
-        observableStore = storeService.loadStores();
-        observableProduct = storeService.loadAllProducts();
-        combined = Observable.zip(observableStore, observableProduct, (listApiResponse, listApiResponse2) -> {
-            List<StoreVsProduct> storeVsProductList = new ArrayList<>();
-            Random r = new Random();
-            List<Product> products = listApiResponse2.getData();
-            for (Store store : listApiResponse.getData()) {
-                int index = r.nextInt(products.size());
-                storeVsProductList.add(new StoreVsProduct(store, products.get(index)));
-            }
-            return storeVsProductList;
-        });
+        Observable<ApiResponse<List<Store>>> observableStore = storeService.loadStores();
+        Observable<ApiResponse<List<Product>>> observableProduct = storeService.loadAllProducts();
+        combined = Observable.zip(observableStore, observableProduct, RetrofitSingleton::getStoreVsProducts);
+    }
+
+    @NonNull
+    private static List<StoreVsProduct> getStoreVsProducts(ApiResponse<List<Store>> listApiResponse, ApiResponse<List<Product>> listApiResponse2) {
+        List<StoreVsProduct> storeVsProductList = new ArrayList<>();
+        Random r = new Random();
+        List<Product> products = listApiResponse2.getData();
+        for (Store store : listApiResponse.getData()) {
+            int index = r.nextInt(products.size());
+            storeVsProductList.add(new StoreVsProduct(store, products.get(index)));
+        }
+        return storeVsProductList;
     }
 
     private static void resetModelsObservable() {

@@ -3,6 +3,7 @@ package com.task.vasskob.testrx.view.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import butterknife.ButterKnife;
 
 
 public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String TAG = StoreListAdapter.class.getSimpleName();
+   // private static final String TAG = StoreListAdapter.class.getSimpleName();
     private final ArrayList<SpecialStore> stores;
     private final Context context;
 
@@ -43,9 +44,20 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             storeHolder.storeName.setText(store.getShopName());
             storeHolder.storeLocation.setText(store.getCity() + ", " + store.getAddress());
             String title=String.format(context.getString(R.string.best_offer),store.getProductName());
-            CharSequence styledTitle= Html.fromHtml(title);
+            CharSequence styledTitle= fromHtml(title);
             storeHolder.storeProducts.setText(styledTitle);
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    private static Spanned fromHtml(String html){
+        Spanned result;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            result = Html.fromHtml(html,Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            result = Html.fromHtml(html);
+        }
+        return result;
     }
 
     @Override
