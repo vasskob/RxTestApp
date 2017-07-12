@@ -1,5 +1,6 @@
-package com.task.vasskob.testrx.view;
+package com.task.vasskob.testrx.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,9 +11,11 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.github.pwittchen.reactivenetwork.library.ReactiveNetwork;
+import com.task.vasskob.testrx.Constants;
 import com.task.vasskob.testrx.R;
 import com.task.vasskob.testrx.model.SpecialStore;
 import com.task.vasskob.testrx.presenter.MainPresenter;
+import com.task.vasskob.testrx.view.MainView;
 import com.task.vasskob.testrx.view.adapter.StoreListAdapter;
 
 import java.util.List;
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private static final String TAG = MainActivity.class.getSimpleName();
     private MainPresenter presenter;
     private Subscription internetConnectionSubscription;
+    private StoreListAdapter mAdapter;
 
 
     @BindView(R.id.rv_stores)
@@ -35,6 +39,15 @@ public class MainActivity extends AppCompatActivity implements MainView {
 
     @BindView(R.id.pb_loading)
     ProgressBar pbLoading;
+
+    private StoreListAdapter.onStoreClickListener onClickListener = view -> {
+        int position = rvStores.getChildAdapterPosition(view);
+        Intent intent = new Intent(this, DetailActivity.class);
+        //SpecialStore store = mAdapter.getItem(position);
+        //intent.putExtra(Constants.STORE_ID, store.getId());
+        intent.putExtra(Constants.STORE_ID, position);
+        startActivity(intent);
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +96,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void showStoreList(List<SpecialStore> storeList) {
         Log.d(TAG, "!!! showStoreList: " + storeList.size());
         pbLoading.setVisibility(View.GONE);
-        rvStores.setAdapter(new StoreListAdapter(storeList, this));
+        mAdapter = new StoreListAdapter(storeList, this, onClickListener);
+        rvStores.setAdapter(mAdapter);
     }
 
     @Override
@@ -102,7 +116,9 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showConnectionSuccessToast() {showToast(getString(R.string.connection_success));}
+    public void showConnectionSuccessToast() {
+        showToast(getString(R.string.connection_success));
+    }
 
     private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

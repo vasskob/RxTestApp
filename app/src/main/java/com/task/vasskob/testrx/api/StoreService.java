@@ -8,6 +8,7 @@ import java.util.List;
 
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Path;
 import rx.Observable;
 
 interface StoreService {
@@ -29,4 +30,11 @@ interface StoreService {
 //            @Query("q") String query,
 //            @Query("where") String where,
 //            @Query("page") Integer page);
+
+    @GET("/stores/{id}/products")
+    @Headers(AUTH_TOKEN)
+    Observable<ApiResponse<List<Product>>> loadProductsInStore(
+            @Path("id") long storeId);
+//            @Query("page") int page,
+//            @Query("q") String query);
 }

@@ -4,10 +4,6 @@ import com.task.vasskob.testrx.model.SpecialStore;
 
 import java.util.List;
 
-public interface MainView {
+public interface MainView extends BaseView{
     void showStoreList(List<SpecialStore> storeList);
-    void showLoadingSuccessToast();
-    void showLoadingErrorToast();
-    void showConnectionFailedToast();
-    void showConnectionSuccessToast();
 }

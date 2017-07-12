@@ -9,6 +9,8 @@ public class Product {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("image_url")
+    private String imageUrl;
     @SerializedName("price_in_cents")
     private long priceInCents;
 
@@ -56,5 +58,13 @@ public class Product {
 
     public void setInventoryCount(long inventoryCount) {
         this.inventoryCount = inventoryCount;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

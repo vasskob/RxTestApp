@@ -33,12 +33,13 @@ public class MainPresenter implements IMainPresenter {
         if (subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }
+
         subscription = RetrofitSingleton.getModelsObservable()
+                .subscribeOn(Schedulers.io())
                 .map(this::getSpecialStores)
                 .flatMapIterable(specialStores -> specialStores)
                 .filter(specialStore -> specialStore.getCity().contains(FILTER_STRING))
                 .toList()
-                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new MySubscriber());
     }
@@ -49,7 +50,7 @@ public class MainPresenter implements IMainPresenter {
         for (StoreVsProduct storeVsProduct : storeVsProductList) {
             Store store = storeVsProduct.getStore();
             Product product = storeVsProduct.getProduct();
-            specialStoreList.add(new SpecialStore(store.getName() + MODIFIER, store.getCity() + CITY, store.getAddress1(), product.getName()));
+            specialStoreList.add(new SpecialStore(store.getId(), store.getName() + MODIFIER, store.getCity() + CITY, store.getAddress1(), product.getName()));
         }
         return specialStoreList;
     }

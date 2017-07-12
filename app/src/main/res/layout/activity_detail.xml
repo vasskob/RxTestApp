@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.task.vasskob.testrx.view.activity.MainActivity">
+    tools:context="com.task.vasskob.testrx.view.activity.DetailActivity">
 
     <ProgressBar
         android:id="@+id/pb_loading"
@@ -15,7 +15,7 @@
 
     <android.support.v7.widget.RecyclerView
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/rv_stores"
+        android:id="@+id/rv_products"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
