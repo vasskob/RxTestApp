@@ -1,27 +1,27 @@
 package com.task.vasskob.testrx.data.entity;
 
 public class StoreVsProduct {
-    private Store store;
-    private Product product;
+    private StoreEntity store;
+    private ProductEntity product;
 
-    public StoreVsProduct(Store store, Product product) {
+    public StoreVsProduct(StoreEntity store, ProductEntity product) {
         this.store = store;
         this.product = product;
     }
 
-    public Store getStore() {
+    public StoreEntity getStore() {
         return store;
     }
 
-    public void setStore(Store store) {
+    public void setStore(StoreEntity store) {
         this.store = store;
     }
 
-    public Product getProduct() {
+    public ProductEntity getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductEntity product) {
         this.product = product;
     }
 }

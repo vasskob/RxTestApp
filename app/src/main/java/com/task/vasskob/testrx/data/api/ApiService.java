@@ -1,8 +1,8 @@
-package com.task.vasskob.testrx.api;
+package com.task.vasskob.testrx.data.api;
 
-import com.task.vasskob.testrx.presentation.model.ApiResponse;
-import com.task.vasskob.testrx.presentation.model.Product;
-import com.task.vasskob.testrx.presentation.model.Store;
+
+import com.task.vasskob.testrx.data.entity.ProductEntity;
+import com.task.vasskob.testrx.data.entity.StoreEntity;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ interface ApiService {
 
     @GET("/stores")
     @Headers(AUTH_TOKEN)
-    Observable<ApiResponse<List<Store>>> loadStores(
+    Observable<ApiResponse<List<StoreEntity>>> loadStores(
 //            @Query("where")
 //                    String where,
 //            @Query("page")
@@ -26,14 +26,14 @@ interface ApiService {
 
     @GET("/products")
     @Headers(AUTH_TOKEN)
-    Observable<ApiResponse<List<Product>>> loadAllProducts();
+    Observable<ApiResponse<List<ProductEntity>>> loadAllProducts();
 //            @Query("q") String query,
 //            @Query("where") String where,
 //            @Query("page") Integer page);
 
     @GET("/stores/{id}/products")
     @Headers(AUTH_TOKEN)
-    Observable<ApiResponse<List<Product>>> loadProductsInStore(
+    Observable<ApiResponse<List<ProductEntity>>> loadProductsInStore(
             @Path("id") long storeId);
 //            @Query("page") int page,
 //            @Query("q") String query);

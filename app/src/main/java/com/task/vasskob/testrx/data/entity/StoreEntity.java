@@ -2,7 +2,7 @@ package com.task.vasskob.testrx.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Store {
+public class StoreEntity {
 
     private long id;
     private String name;
@@ -21,7 +21,7 @@ public class Store {
     private boolean hasVintagesCorner;
     private boolean hasParking;
 
-    public Store(long id, String name, String address1, String address2, String city) {
+    public StoreEntity(long id, String name, String address1, String address2, String city) {
         this.id = id;
         this.name = name;
         this.address1 = address1;
@@ -29,20 +29,20 @@ public class Store {
         this.city = city;
     }
 
-    public Store() {
+    public StoreEntity() {
     }
 
-    public Store(String name, String address1, String city) {
+    public StoreEntity(String name, String address1, String city) {
         this.name = name;
         this.address1 = address1;
         this.city = city;
     }
 
-    public Store(long id, String name, String address1, String address2, String city,
-                 String telephone, double latitude, double longitude,
-                 boolean hasWheelchairAccessability, boolean hasBilingualServices,
-                 boolean hasTastingBar, boolean hasBeerColdRoom, boolean hasVintagesCorner,
-                 boolean hasParking) {
+    public StoreEntity(long id, String name, String address1, String address2, String city,
+                       String telephone, double latitude, double longitude,
+                       boolean hasWheelchairAccessability, boolean hasBilingualServices,
+                       boolean hasTastingBar, boolean hasBeerColdRoom, boolean hasVintagesCorner,
+                       boolean hasParking) {
         this.id = id;
         this.name = name;
         this.address1 = address1;

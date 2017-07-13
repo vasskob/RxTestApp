@@ -2,7 +2,7 @@ package com.task.vasskob.testrx.data.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Product {
+public class ProductEntity {
     @SerializedName("id")
     private long id;
 

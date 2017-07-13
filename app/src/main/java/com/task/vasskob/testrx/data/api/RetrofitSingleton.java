@@ -1,15 +1,14 @@
-package com.task.vasskob.testrx.api;
+package com.task.vasskob.testrx.data.api;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.task.vasskob.testrx.data.entity.ProductEntity;
+import com.task.vasskob.testrx.data.entity.StoreEntity;
+import com.task.vasskob.testrx.data.entity.StoreVsProduct;
 import com.task.vasskob.testrx.presentation.Constants;
-import com.task.vasskob.testrx.presentation.model.ApiResponse;
-import com.task.vasskob.testrx.presentation.model.Product;
-import com.task.vasskob.testrx.presentation.model.Store;
-import com.task.vasskob.testrx.presentation.model.StoreVsProduct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +27,12 @@ public class RetrofitSingleton {
     private static final String TAG = RetrofitSingleton.class.getSimpleName();
 
     private static ReplaySubject<List<StoreVsProduct>> observableModelsList;
-    private static ReplaySubject<List<Store>> observableStoreList;
-    private static ReplaySubject<List<Product>> observableProductsList;
+    private static ReplaySubject<List<StoreEntity>> observableStoreList;
+    private static ReplaySubject<List<ProductEntity>> observableProductsList;
     private static Subscription subscriptionCombine;
     private static Subscription subscriptionProductsById;
     private static Subscription subscriptionStore;
-    private static Observable<ApiResponse<List<Store>>> observableStore;
+    private static Observable<ApiResponse<List<StoreEntity>>> observableStore;
     private static Observable<List<StoreVsProduct>> combined;
     private static ApiService mService;
 
@@ -54,17 +53,17 @@ public class RetrofitSingleton {
 
         mService = retrofit.create(ApiService.class);
         observableStore = mService.loadStores();
-        Observable<ApiResponse<List<Product>>> observableProduct = mService.loadAllProducts();
+        Observable<ApiResponse<List<ProductEntity>>> observableProduct = mService.loadAllProducts();
 
         combined = Observable.zip(observableStore, observableProduct, RetrofitSingleton::getStoreVsProducts);
     }
 
     @NonNull
-    private static List<StoreVsProduct> getStoreVsProducts(ApiResponse<List<Store>> listApiResponse, ApiResponse<List<Product>> listApiResponse2) {
+    private static List<StoreVsProduct> getStoreVsProducts(ApiResponse<List<StoreEntity>> listApiResponse, ApiResponse<List<ProductEntity>> listApiResponse2) {
         List<StoreVsProduct> storeVsProductList = new ArrayList<>();
         Random r = new Random();
-        List<Product> products = listApiResponse2.getData();
-        for (Store store : listApiResponse.getData()) {
+        List<ProductEntity> products = listApiResponse2.getData();
+        for (StoreEntity store : listApiResponse.getData()) {
             int index = r.nextInt(products.size());
             storeVsProductList.add(new StoreVsProduct(store, products.get(index)));
         }
@@ -108,7 +107,7 @@ public class RetrofitSingleton {
     }
 
     /////////////////////// -------- PRODUCT ------------/////////////////
-    public static Observable<List<Product>> getProductObservable(long id) {
+    public static Observable<List<ProductEntity>> getProductObservable(long id) {
         if (observableProductsList == null) {
             resetProductsObservable(id);
         }
@@ -121,9 +120,9 @@ public class RetrofitSingleton {
         if (subscriptionProductsById != null && !subscriptionProductsById.isUnsubscribed()) {
             subscriptionProductsById.unsubscribe();
         }
-        Observable<ApiResponse<List<Product>>> observableProductById = mService.loadProductsInStore(id);
+        Observable<ApiResponse<List<ProductEntity>>> observableProductById = mService.loadProductsInStore(id);
 
-        subscriptionProductsById = observableProductById.subscribe(new Subscriber<ApiResponse<List<Product>>>() {
+        subscriptionProductsById = observableProductById.subscribe(new Subscriber<ApiResponse<List<ProductEntity>>>() {
             @Override
             public void onCompleted() {
                 observableProductsList.onCompleted();
@@ -135,14 +134,14 @@ public class RetrofitSingleton {
             }
 
             @Override
-            public void onNext(ApiResponse<List<Product>> listApiResponse) {
+            public void onNext(ApiResponse<List<ProductEntity>> listApiResponse) {
                 observableProductsList.onNext(listApiResponse.getData());
             }
         });
     }
 
     /////////////////////// -------- STORE ------------/////////////////
-    public static Observable<List<Store>> getStoreObservable() {
+    public static Observable<List<StoreEntity>> getStoreObservable() {
         if (observableStoreList == null) {
             resetStoreObservable();
         }
@@ -156,7 +155,7 @@ public class RetrofitSingleton {
             subscriptionStore.unsubscribe();
         }
 
-        subscriptionStore = observableStore.subscribe(new Subscriber<ApiResponse<List<Store>>>() {
+        subscriptionStore = observableStore.subscribe(new Subscriber<ApiResponse<List<StoreEntity>>>() {
             @Override
             public void onCompleted() {
                 observableStoreList.onCompleted();
@@ -168,7 +167,7 @@ public class RetrofitSingleton {
             }
 
             @Override
-            public void onNext(ApiResponse<List<Store>> listApiResponse) {
+            public void onNext(ApiResponse<List<StoreEntity>> listApiResponse) {
                 observableStoreList.onNext(listApiResponse.getData());
             }
         });

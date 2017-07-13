@@ -6,5 +6,5 @@ import io.reactivex.Observable;
 
 
 public interface ProductRepository {
-    Observable<List<Product>> products();
+    Observable<List<Product>> products(long shopId);
 }

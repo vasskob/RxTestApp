@@ -2,7 +2,7 @@ package com.task.vasskob.testrx.presentation;
 
 import android.app.Application;
 
-import com.task.vasskob.testrx.api.RetrofitSingleton;
+import com.task.vasskob.testrx.presentation.api.RetrofitSingleton;
 
 
 public class MyApplication extends Application {
