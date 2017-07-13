@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements MainView {
     private static final String TAG = MainActivity.class.getSimpleName();
     private MainPresenter presenter;
     private Subscription internetConnectionSubscription;
-    private StoreListAdapter mAdapter;
 
 
     @BindView(R.id.rv_stores)
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     @BindView(R.id.pb_loading)
     ProgressBar pbLoading;
 
-    private StoreListAdapter.onStoreClickListener onClickListener = view -> {
+    private final StoreListAdapter.onStoreClickListener onClickListener = view -> {
         int position = rvStores.getChildAdapterPosition(view);
         Intent intent = new Intent(this, DetailActivity.class);
         //SpecialStore store = mAdapter.getItem(position);
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void showStoreList(List<SpecialStore> storeList) {
         Log.d(TAG, "!!! showStoreList: " + storeList.size());
         pbLoading.setVisibility(View.GONE);
-        mAdapter = new StoreListAdapter(storeList, this, onClickListener);
+        StoreListAdapter mAdapter = new StoreListAdapter(storeList, this, onClickListener);
         rvStores.setAdapter(mAdapter);
     }
 

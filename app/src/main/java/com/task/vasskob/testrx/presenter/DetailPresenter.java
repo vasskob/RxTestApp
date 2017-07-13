@@ -20,7 +20,7 @@ public class DetailPresenter implements IDetailPresenter {
     private Subscription subscription;
 
     public DetailPresenter(int position) {
-        this.position=position;
+        this.position = position;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class RetrofitSingleton {
     private static Subscription subscriptionStore;
     private static Observable<ApiResponse<List<Store>>> observableStore;
     private static Observable<List<StoreVsProduct>> combined;
-    private static StoreService storeService;
+    private static ApiService mService;
 
     private RetrofitSingleton() {
     }
@@ -52,10 +52,9 @@ public class RetrofitSingleton {
                 .addCallAdapterFactory(rxAdapter)
                 .build();
 
-        storeService = retrofit.create(StoreService.class);
-
-        observableStore = storeService.loadStores();
-        Observable<ApiResponse<List<Product>>> observableProduct = storeService.loadAllProducts();
+        mService = retrofit.create(ApiService.class);
+        observableStore = mService.loadStores();
+        Observable<ApiResponse<List<Product>>> observableProduct = mService.loadAllProducts();
 
         combined = Observable.zip(observableStore, observableProduct, RetrofitSingleton::getStoreVsProducts);
     }
@@ -122,7 +121,7 @@ public class RetrofitSingleton {
         if (subscriptionProductsById != null && !subscriptionProductsById.isUnsubscribed()) {
             subscriptionProductsById.unsubscribe();
         }
-        Observable<ApiResponse<List<Product>>> observableProductById = storeService.loadProductsInStore(id);
+        Observable<ApiResponse<List<Product>>> observableProductById = mService.loadProductsInStore(id);
 
         subscriptionProductsById = observableProductById.subscribe(new Subscriber<ApiResponse<List<Product>>>() {
             @Override

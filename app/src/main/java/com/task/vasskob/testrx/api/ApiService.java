@@ -11,7 +11,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import rx.Observable;
 
-interface StoreService {
+interface ApiService {
     String LCBO_API_KEY="MDoxZTlhNDkwMi1mM2FjLTExZTYtYWYwNi0wYmFlYTdiMTUyNjY6MjNxY24zdklFV2lhME5NVzZhYnNydWg4MXpsVlBUVk5OM2VY";
     String AUTH_TOKEN = "Authorization: Token " + LCBO_API_KEY;
 
