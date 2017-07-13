@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.presentetion.model;
+package com.task.vasskob.testrx.presentation.model;
 
 public class SpecialStore {
     public long getId() {

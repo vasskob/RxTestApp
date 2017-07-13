@@ -5,11 +5,11 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.task.vasskob.testrx.presentetion.Constants;
-import com.task.vasskob.testrx.presentetion.model.ApiResponse;
-import com.task.vasskob.testrx.presentetion.model.Product;
-import com.task.vasskob.testrx.presentetion.model.Store;
-import com.task.vasskob.testrx.presentetion.model.StoreVsProduct;
+import com.task.vasskob.testrx.presentation.Constants;
+import com.task.vasskob.testrx.presentation.model.ApiResponse;
+import com.task.vasskob.testrx.presentation.model.Product;
+import com.task.vasskob.testrx.presentation.model.Store;
+import com.task.vasskob.testrx.presentation.model.StoreVsProduct;
 
 import java.util.ArrayList;
 import java.util.List;

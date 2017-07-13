@@ -1,10 +1,10 @@
-package com.task.vasskob.testrx.presentetion.presenter;
+package com.task.vasskob.testrx.presentation.presenter;
 
 import android.util.Log;
 
 import com.task.vasskob.testrx.api.RetrofitSingleton;
-import com.task.vasskob.testrx.presentetion.model.Product;
-import com.task.vasskob.testrx.presentetion.view.DetailView;
+import com.task.vasskob.testrx.presentation.model.Product;
+import com.task.vasskob.testrx.presentation.view.DetailView;
 
 import java.util.List;
 

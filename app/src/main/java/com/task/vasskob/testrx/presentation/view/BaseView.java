@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.presentetion.view;
+package com.task.vasskob.testrx.presentation.view;
 
 interface BaseView {
     void showLoadingSuccessToast();

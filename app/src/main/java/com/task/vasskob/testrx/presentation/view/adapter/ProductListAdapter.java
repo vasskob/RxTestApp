@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.presentetion.view.adapter;
+package com.task.vasskob.testrx.presentation.view.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.task.vasskob.testrx.R;
-import com.task.vasskob.testrx.presentetion.model.Product;
+import com.task.vasskob.testrx.presentation.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;

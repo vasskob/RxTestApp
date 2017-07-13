@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.presentetion.view.activity;
+package com.task.vasskob.testrx.presentation.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +11,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.github.pwittchen.reactivenetwork.library.ReactiveNetwork;
-import com.task.vasskob.testrx.presentetion.Constants;
+import com.task.vasskob.testrx.presentation.Constants;
 import com.task.vasskob.testrx.R;
-import com.task.vasskob.testrx.presentetion.model.SpecialStore;
-import com.task.vasskob.testrx.presentetion.presenter.MainPresenter;
-import com.task.vasskob.testrx.presentetion.view.MainView;
-import com.task.vasskob.testrx.presentetion.view.adapter.StoreListAdapter;
+import com.task.vasskob.testrx.presentation.model.SpecialStore;
+import com.task.vasskob.testrx.presentation.presenter.MainPresenter;
+import com.task.vasskob.testrx.presentation.view.MainView;
+import com.task.vasskob.testrx.presentation.view.adapter.StoreListAdapter;
 
 import java.util.List;
 

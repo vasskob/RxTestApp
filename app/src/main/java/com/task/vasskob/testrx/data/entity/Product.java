@@ -1,12 +1,23 @@
-package com.task.vasskob.testrx.domain.entity;
+package com.task.vasskob.testrx.data.entity;
+
+import com.google.gson.annotations.SerializedName;
 
 public class Product {
-
+    @SerializedName("id")
     private long id;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("image_url")
     private String imageUrl;
+    @SerializedName("price_in_cents")
     private long priceInCents;
+
+    @SerializedName("primary_category")
     private String primaryCategory;
+
+    @SerializedName("inventory_count")
     private long inventoryCount;
 
     public long getId() {

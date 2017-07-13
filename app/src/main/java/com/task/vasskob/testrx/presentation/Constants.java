@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.presentetion;
+package com.task.vasskob.testrx.presentation;
 
 public class Constants {
     public static final String BASE_URL = "https://lcboapi.com";

@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.presentetion.view.activity;
+package com.task.vasskob.testrx.presentation.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,12 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.task.vasskob.testrx.presentetion.Constants;
+import com.task.vasskob.testrx.presentation.Constants;
 import com.task.vasskob.testrx.R;
-import com.task.vasskob.testrx.presentetion.model.Product;
-import com.task.vasskob.testrx.presentetion.presenter.DetailPresenter;
-import com.task.vasskob.testrx.presentetion.view.DetailView;
-import com.task.vasskob.testrx.presentetion.view.adapter.ProductListAdapter;
+import com.task.vasskob.testrx.presentation.model.Product;
+import com.task.vasskob.testrx.presentation.presenter.DetailPresenter;
+import com.task.vasskob.testrx.presentation.view.DetailView;
+import com.task.vasskob.testrx.presentation.view.adapter.ProductListAdapter;
 
 import java.util.List;
 

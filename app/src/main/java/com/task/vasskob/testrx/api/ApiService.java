@@ -1,8 +1,8 @@
 package com.task.vasskob.testrx.api;
 
-import com.task.vasskob.testrx.presentetion.model.ApiResponse;
-import com.task.vasskob.testrx.presentetion.model.Product;
-import com.task.vasskob.testrx.presentetion.model.Store;
+import com.task.vasskob.testrx.presentation.model.ApiResponse;
+import com.task.vasskob.testrx.presentation.model.Product;
+import com.task.vasskob.testrx.presentation.model.Store;
 
 import java.util.List;
 

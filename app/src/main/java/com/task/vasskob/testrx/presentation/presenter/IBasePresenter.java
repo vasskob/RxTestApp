@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.presentetion.presenter;
+package com.task.vasskob.testrx.presentation.presenter;
 
 interface IBasePresenter {
     void loadData();
