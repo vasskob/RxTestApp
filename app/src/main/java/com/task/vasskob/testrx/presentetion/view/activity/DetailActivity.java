@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.view.activity;
+package com.task.vasskob.testrx.presentetion.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,12 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.task.vasskob.testrx.Constants;
+import com.task.vasskob.testrx.presentetion.Constants;
 import com.task.vasskob.testrx.R;
-import com.task.vasskob.testrx.model.Product;
-import com.task.vasskob.testrx.presenter.DetailPresenter;
-import com.task.vasskob.testrx.view.DetailView;
-import com.task.vasskob.testrx.view.adapter.ProductListAdapter;
+import com.task.vasskob.testrx.presentetion.model.Product;
+import com.task.vasskob.testrx.presentetion.presenter.DetailPresenter;
+import com.task.vasskob.testrx.presentetion.view.DetailView;
+import com.task.vasskob.testrx.presentetion.view.adapter.ProductListAdapter;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         ButterKnife.bind(this);
 
     //    long storeId = getIntent().getExtras().getLong(Constants.STORE_ID);
-        int storeId = getIntent().getExtras().getInt(Constants.STORE_ID);
+        int storeId = getIntent().getExtras().getInt(Constants.STORE_POSITION);
         rvProducts.setLayoutManager(new LinearLayoutManager(this));
 
         DetailPresenter presenter = new DetailPresenter(storeId);

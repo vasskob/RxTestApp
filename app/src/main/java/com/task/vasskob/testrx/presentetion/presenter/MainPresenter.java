@@ -1,14 +1,14 @@
-package com.task.vasskob.testrx.presenter;
+package com.task.vasskob.testrx.presentetion.presenter;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.task.vasskob.testrx.api.RetrofitSingleton;
-import com.task.vasskob.testrx.model.Product;
-import com.task.vasskob.testrx.model.SpecialStore;
-import com.task.vasskob.testrx.model.Store;
-import com.task.vasskob.testrx.model.StoreVsProduct;
-import com.task.vasskob.testrx.view.MainView;
+import com.task.vasskob.testrx.presentetion.model.Product;
+import com.task.vasskob.testrx.presentetion.model.SpecialStore;
+import com.task.vasskob.testrx.presentetion.model.Store;
+import com.task.vasskob.testrx.presentetion.model.StoreVsProduct;
+import com.task.vasskob.testrx.presentetion.view.MainView;
 
 import java.util.ArrayList;
 import java.util.List;

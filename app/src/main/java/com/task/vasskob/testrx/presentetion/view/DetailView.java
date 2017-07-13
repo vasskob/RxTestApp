@@ -1,6 +1,6 @@
-package com.task.vasskob.testrx.view;
+package com.task.vasskob.testrx.presentetion.view;
 
-import com.task.vasskob.testrx.model.Product;
+import com.task.vasskob.testrx.presentetion.model.Product;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.view.activity;
+package com.task.vasskob.testrx.presentetion.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +11,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.github.pwittchen.reactivenetwork.library.ReactiveNetwork;
-import com.task.vasskob.testrx.Constants;
+import com.task.vasskob.testrx.presentetion.Constants;
 import com.task.vasskob.testrx.R;
-import com.task.vasskob.testrx.model.SpecialStore;
-import com.task.vasskob.testrx.presenter.MainPresenter;
-import com.task.vasskob.testrx.view.MainView;
-import com.task.vasskob.testrx.view.adapter.StoreListAdapter;
+import com.task.vasskob.testrx.presentetion.model.SpecialStore;
+import com.task.vasskob.testrx.presentetion.presenter.MainPresenter;
+import com.task.vasskob.testrx.presentetion.view.MainView;
+import com.task.vasskob.testrx.presentetion.view.adapter.StoreListAdapter;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
         Intent intent = new Intent(this, DetailActivity.class);
         //SpecialStore store = mAdapter.getItem(position);
         //intent.putExtra(Constants.STORE_ID, store.getId());
-        intent.putExtra(Constants.STORE_ID, position);
+        intent.putExtra(Constants.STORE_POSITION, position);
         startActivity(intent);
     };
 

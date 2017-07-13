@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.model;
+package com.task.vasskob.testrx.presentetion.model;
 
 import com.google.gson.annotations.SerializedName;
 

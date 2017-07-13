@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx;
+package com.task.vasskob.testrx.presentetion;
 
 import android.app.Application;
 
