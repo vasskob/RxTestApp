@@ -1,6 +1,6 @@
 package com.task.vasskob.testrx.presentation.model;
 
-public class SpecialStore {
+public class SpecialStoreModel {
     public long getId() {
         return id;
     }
@@ -15,7 +15,7 @@ public class SpecialStore {
     private String address;
     private String productName;
 
-    public SpecialStore(long id, String name, String city, String address, String productName) {
+    public SpecialStoreModel(long id, String name, String city, String address, String productName) {
         this.id = id;
         this.shopName = name;
         this.city = city;

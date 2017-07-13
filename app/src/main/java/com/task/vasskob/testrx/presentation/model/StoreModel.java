@@ -1,14 +1,10 @@
 package com.task.vasskob.testrx.presentation.model;
 
-import com.google.gson.annotations.SerializedName;
-
-public class Store {
+public class StoreModel {
 
     private long id;
     private String name;
-    @SerializedName("address_line_1")
     private String address1;
-    @SerializedName("address_line_2")
     private String address2;
     private String city;
     private String telephone;
@@ -20,44 +16,6 @@ public class Store {
     private boolean hasBeerColdRoom;
     private boolean hasVintagesCorner;
     private boolean hasParking;
-
-    public Store(long id, String name, String address1, String address2, String city) {
-        this.id = id;
-        this.name = name;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.city = city;
-    }
-
-    public Store() {
-    }
-
-    public Store(String name, String address1, String city) {
-        this.name = name;
-        this.address1 = address1;
-        this.city = city;
-    }
-
-    public Store(long id, String name, String address1, String address2, String city,
-                 String telephone, double latitude, double longitude,
-                 boolean hasWheelchairAccessability, boolean hasBilingualServices,
-                 boolean hasTastingBar, boolean hasBeerColdRoom, boolean hasVintagesCorner,
-                 boolean hasParking) {
-        this.id = id;
-        this.name = name;
-        this.address1 = address1;
-        this.address2 = address2;
-        this.city = city;
-        this.telephone = telephone;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.hasWheelchairAccessability = hasWheelchairAccessability;
-        this.hasBilingualServices = hasBilingualServices;
-        this.hasTastingBar = hasTastingBar;
-        this.hasBeerColdRoom = hasBeerColdRoom;
-        this.hasVintagesCorner = hasVintagesCorner;
-        this.hasParking = hasParking;
-    }
 
     public long getId() {
         return id;

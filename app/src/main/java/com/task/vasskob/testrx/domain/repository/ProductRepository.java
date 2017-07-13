@@ -1,8 +1,10 @@
 package com.task.vasskob.testrx.domain.repository;
 
 import com.task.vasskob.testrx.domain.entity.Product;
+
 import java.util.List;
-import io.reactivex.Observable;
+
+import rx.Observable;
 
 
 public interface ProductRepository {

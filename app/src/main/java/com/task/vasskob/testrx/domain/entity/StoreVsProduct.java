@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.presentation.model;
+package com.task.vasskob.testrx.domain.entity;
 
 public class StoreVsProduct {
     private Store store;

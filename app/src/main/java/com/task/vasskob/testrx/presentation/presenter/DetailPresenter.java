@@ -2,12 +2,16 @@ package com.task.vasskob.testrx.presentation.presenter;
 
 import android.util.Log;
 
-import com.task.vasskob.testrx.presentation.api.RetrofitSingleton;
-import com.task.vasskob.testrx.presentation.model.Product;
+import com.task.vasskob.testrx.data.repository.ProductDataRepository;
+import com.task.vasskob.testrx.data.repository.StoreDataRepository;
+import com.task.vasskob.testrx.domain.entity.Product;
+import com.task.vasskob.testrx.presentation.mapper.ProductDataMapper;
+import com.task.vasskob.testrx.presentation.model.ProductModel;
 import com.task.vasskob.testrx.presentation.view.DetailView;
 
 import java.util.List;
 
+import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -29,18 +33,27 @@ public class DetailPresenter implements IDetailPresenter {
             subscription.unsubscribe();
         }
 
-        subscription = RetrofitSingleton.getStoreObservable()
+        subscription = new StoreDataRepository()
+                .stores()
                 .subscribeOn(Schedulers.io())
                 .flatMapIterable(stores -> stores)
                 .flatMap(store -> getProductsForStore(store.getId()))
+                .map(products -> new ProductDataMapper().transform(products))
                 .toList()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new MySubscriber());
+
+//        subscription = RetrofitSingleton.getStoreObservable()
+//                .subscribeOn(Schedulers.io())
+//                .flatMapIterable(stores -> stores)
+//                .flatMap(store -> getProductsForStore(store.getId()))
+//                .toList()
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(new MySubscriber());
     }
 
-    private rx.Observable<List<Product>> getProductsForStore(long id) {
-        return RetrofitSingleton.getProductObservable(id);
-
+    private Observable<List<Product>> getProductsForStore(long id) {
+        return new ProductDataRepository().products(id);
     }
 
     @Override
@@ -53,7 +66,7 @@ public class DetailPresenter implements IDetailPresenter {
         mView = view;
     }
 
-    private class MySubscriber extends Subscriber<List<List<Product>>> {
+    private class MySubscriber extends Subscriber<List<List<ProductModel>>> {
         @Override
         public void onCompleted() {
             mView.showLoadingSuccessToast();
@@ -67,7 +80,7 @@ public class DetailPresenter implements IDetailPresenter {
         }
 
         @Override
-        public void onNext(List<List<Product>> listProductsList) {
+        public void onNext(List<List<ProductModel>> listProductsList) {
             mView.showProductList(listProductsList.get(position));
 
         }

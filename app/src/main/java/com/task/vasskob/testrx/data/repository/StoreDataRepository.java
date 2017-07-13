@@ -7,15 +7,15 @@ import com.task.vasskob.testrx.domain.repository.StoreRepository;
 
 import java.util.List;
 
-import hu.akarnokd.rxjava.interop.RxJavaInterop;
-import io.reactivex.Observable;
+import rx.Observable;
+
 
 public class StoreDataRepository implements StoreRepository {
 
     @Override
     public Observable<List<Store>> stores() {
-        return RxJavaInterop.toV2Observable(RetrofitSingleton
-                        .getStoreObservable()
-                        .map(storeCollection -> new ShopEntityDataMapper().transform(storeCollection)));
+        return RetrofitSingleton
+                .getStoreObservable()
+                .map(storeCollection -> new ShopEntityDataMapper().transform(storeCollection));
     }
 }

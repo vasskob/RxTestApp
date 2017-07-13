@@ -7,15 +7,15 @@ import com.task.vasskob.testrx.domain.repository.ProductRepository;
 
 import java.util.List;
 
-import hu.akarnokd.rxjava.interop.RxJavaInterop;
-import io.reactivex.Observable;
+import rx.Observable;
+
 
 public class ProductDataRepository implements ProductRepository {
 
     @Override
     public Observable<List<Product>> products(long shopId) {
-        return RxJavaInterop.toV2Observable(RetrofitSingleton
+        return RetrofitSingleton
                 .getProductObservable(shopId)
-                .map(productCollection -> new ProductEntityDataMapper().transform(productCollection)));
+                .map(productCollection -> new ProductEntityDataMapper().transform(productCollection));
     }
 }

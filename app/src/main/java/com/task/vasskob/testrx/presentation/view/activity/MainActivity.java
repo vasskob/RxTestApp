@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.github.pwittchen.reactivenetwork.library.ReactiveNetwork;
 import com.task.vasskob.testrx.presentation.Constants;
 import com.task.vasskob.testrx.R;
-import com.task.vasskob.testrx.presentation.model.SpecialStore;
+import com.task.vasskob.testrx.presentation.model.SpecialStoreModel;
 import com.task.vasskob.testrx.presentation.presenter.MainPresenter;
 import com.task.vasskob.testrx.presentation.view.MainView;
 import com.task.vasskob.testrx.presentation.view.adapter.StoreListAdapter;
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements MainView {
     }
 
     @Override
-    public void showStoreList(List<SpecialStore> storeList) {
+    public void showStoreList(List<SpecialStoreModel> storeList) {
         Log.d(TAG, "!!! showStoreList: " + storeList.size());
         pbLoading.setVisibility(View.GONE);
         StoreListAdapter mAdapter = new StoreListAdapter(storeList, this, onClickListener);
@@ -118,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements MainView {
     public void showConnectionSuccessToast() {
         showToast(getString(R.string.connection_success));
     }
+
+
 
     private void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();

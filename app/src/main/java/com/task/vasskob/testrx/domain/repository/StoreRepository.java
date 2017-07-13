@@ -5,7 +5,8 @@ import com.task.vasskob.testrx.domain.entity.Store;
 
 import java.util.List;
 
-import io.reactivex.Observable;
+import rx.Observable;
+
 
 public interface StoreRepository {
     Observable<List<Store>> stores();

@@ -7,7 +7,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.task.vasskob.testrx.data.entity.ProductEntity;
 import com.task.vasskob.testrx.data.entity.StoreEntity;
-import com.task.vasskob.testrx.data.entity.StoreVsProduct;
+import com.task.vasskob.testrx.data.entity.maper.ProductEntityDataMapper;
+import com.task.vasskob.testrx.data.entity.maper.ShopEntityDataMapper;
+import com.task.vasskob.testrx.domain.entity.StoreVsProduct;
 import com.task.vasskob.testrx.presentation.Constants;
 
 import java.util.ArrayList;
@@ -65,7 +67,9 @@ public class RetrofitSingleton {
         List<ProductEntity> products = listApiResponse2.getData();
         for (StoreEntity store : listApiResponse.getData()) {
             int index = r.nextInt(products.size());
-            storeVsProductList.add(new StoreVsProduct(store, products.get(index)));
+            storeVsProductList.add(new StoreVsProduct(
+                    new ShopEntityDataMapper().transform(store),
+                    new ProductEntityDataMapper().transform(products.get(index))));
         }
         return storeVsProductList;
     }

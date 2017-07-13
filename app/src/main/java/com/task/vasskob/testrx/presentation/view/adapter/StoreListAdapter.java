@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.task.vasskob.testrx.R;
-import com.task.vasskob.testrx.presentation.model.SpecialStore;
+import com.task.vasskob.testrx.presentation.model.SpecialStoreModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +22,12 @@ import butterknife.OnClick;
 
 public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     // private static final String TAG = StoreListAdapter.class.getSimpleName();
-    private final ArrayList<SpecialStore> stores;
+    private final ArrayList<SpecialStoreModel> stores;
     private final Context context;
     private final onStoreClickListener listener;
 
-    public StoreListAdapter(List<SpecialStore> stores, Context context, onStoreClickListener listener) {
-        this.stores = (ArrayList<SpecialStore>) stores;
+    public StoreListAdapter(List<SpecialStoreModel> stores, Context context, onStoreClickListener listener) {
+        this.stores = (ArrayList<SpecialStoreModel>) stores;
         this.context = context;
         this.listener = listener;
     }
@@ -42,7 +42,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         StoreViewHolder storeHolder = (StoreViewHolder) holder;
         if (stores != null) {
-            SpecialStore store = stores.get(position);
+            SpecialStoreModel store = stores.get(position);
             storeHolder.storeName.setText(store.getShopName());
             storeHolder.storeLocation.setText(store.getCity() + ", " + store.getAddress());
             String title = String.format(context.getString(R.string.best_offer), store.getProductName());
@@ -69,7 +69,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else return 0;
     }
 
-    public SpecialStore getItem(int position) {
+    public SpecialStoreModel getItem(int position) {
         return stores.get(position);
     }
 

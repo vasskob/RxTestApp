@@ -1,4 +1,4 @@
-package com.task.vasskob.testrx.data.entity;
+package com.task.vasskob.testrx.domain.entity;
 
 public class SpecialStore {
     public long getId() {

@@ -3,11 +3,12 @@ package com.task.vasskob.testrx.presentation.presenter;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.task.vasskob.testrx.presentation.api.RetrofitSingleton;
-import com.task.vasskob.testrx.presentation.model.Product;
-import com.task.vasskob.testrx.presentation.model.SpecialStore;
-import com.task.vasskob.testrx.presentation.model.Store;
-import com.task.vasskob.testrx.presentation.model.StoreVsProduct;
+import com.task.vasskob.testrx.data.repository.CombinedDataRepository;
+import com.task.vasskob.testrx.presentation.mapper.ShopVsProductDataMapper;
+import com.task.vasskob.testrx.presentation.model.ProductModel;
+import com.task.vasskob.testrx.presentation.model.SpecialStoreModel;
+import com.task.vasskob.testrx.presentation.model.StoreModel;
+import com.task.vasskob.testrx.presentation.model.StoreVsProductModel;
 import com.task.vasskob.testrx.presentation.view.MainView;
 
 import java.util.ArrayList;
@@ -34,8 +35,10 @@ public class MainPresenter implements IMainPresenter {
             subscription.unsubscribe();
         }
 
-        subscription = RetrofitSingleton.getModelsObservable()
+        subscription = new CombinedDataRepository()
+                .storesVsProducts()
                 .subscribeOn(Schedulers.io())
+                .map(storeVsProducts -> new ShopVsProductDataMapper().transform(storeVsProducts))
                 .map(this::getSpecialStores)
                 .flatMapIterable(specialStores -> specialStores)
                 .filter(specialStore -> specialStore.getCity().contains(FILTER_STRING))
@@ -45,12 +48,14 @@ public class MainPresenter implements IMainPresenter {
     }
 
     @NonNull
-    private List<SpecialStore> getSpecialStores(List<StoreVsProduct> storeVsProductList) {
-        List<SpecialStore> specialStoreList = new ArrayList<>();
-        for (StoreVsProduct storeVsProduct : storeVsProductList) {
-            Store store = storeVsProduct.getStore();
-            Product product = storeVsProduct.getProduct();
-            specialStoreList.add(new SpecialStore(store.getId(), store.getName() + MODIFIER, store.getCity() + CITY, store.getAddress1(), product.getName()));
+    private List<SpecialStoreModel> getSpecialStores(List<StoreVsProductModel> storeVsProductList) {
+        List<SpecialStoreModel> specialStoreList = new ArrayList<>();
+        if (storeVsProductList != null && !storeVsProductList.isEmpty()) {
+            for (StoreVsProductModel storeVsProduct : storeVsProductList) {
+                StoreModel store = storeVsProduct.getStore();
+                ProductModel product = storeVsProduct.getProduct();
+                specialStoreList.add(new SpecialStoreModel(store.getId(), store.getName() + MODIFIER, store.getCity() + CITY, store.getAddress1(), product.getName()));
+            }
         }
         return specialStoreList;
     }
@@ -72,7 +77,7 @@ public class MainPresenter implements IMainPresenter {
         }
     }
 
-    private class MySubscriber extends Subscriber<List<SpecialStore>> {
+    private class MySubscriber extends Subscriber<List<SpecialStoreModel>> {
 
         @Override
         public void onCompleted() {
@@ -87,7 +92,7 @@ public class MainPresenter implements IMainPresenter {
         }
 
         @Override
-        public void onNext(List<SpecialStore> stores) {
+        public void onNext(List<SpecialStoreModel> stores) {
             int prevSize = stores.size();
             Log.d(TAG, "onNext: " + prevSize);
             mView.showStoreList(stores);

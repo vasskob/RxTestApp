@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 
 import com.task.vasskob.testrx.presentation.Constants;
 import com.task.vasskob.testrx.R;
-import com.task.vasskob.testrx.presentation.model.Product;
+import com.task.vasskob.testrx.presentation.model.ProductModel;
 import com.task.vasskob.testrx.presentation.presenter.DetailPresenter;
 import com.task.vasskob.testrx.presentation.view.DetailView;
 import com.task.vasskob.testrx.presentation.view.adapter.ProductListAdapter;
@@ -66,8 +66,8 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
     }
 
-    @Override
-    public void showProductList(List<Product> productList) {
+   @Override
+    public void showProductList(List<ProductModel> productList) {
         rvProducts.setAdapter(new ProductListAdapter(productList, this));
         pbLoading.setVisibility(View.GONE);
     }
